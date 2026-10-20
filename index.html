@@ -1,0 +1,801 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#050314">
+<meta name="description" content="Um universo inteiro, criado para alguém especial.">
+<title>Um universo para você ✨</title>
+
+<style>
+:root {
+    --fundo: #050314;
+    --roxo: #a855f7;
+    --rosa: #ffb6ed;
+    --dourado: #ffe2b0;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: var(--fundo);
+    color: white;
+    font-family: Georgia, "Times New Roman", serif;
+    overscroll-behavior: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+#universo {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    isolation: isolate;
+    background:
+        radial-gradient(ellipse at 50% 48%,
+            #24103f 0%, transparent 48%),
+        radial-gradient(ellipse at 20% 15%,
+            #180e38 0%, transparent 50%),
+        #03020c;
+    touch-action: none;
+    user-select: none;
+}
+
+/* Camadas do espaço */
+
+.camada {
+    position: absolute;
+    inset: -8%;
+    transition:
+        transform 1.5s cubic-bezier(.2,.7,.2,1),
+        opacity 1.5s ease,
+        filter 1.5s ease;
+    will-change: transform, opacity;
+}
+
+#ceu {
+    z-index: 0;
+}
+
+#nebulosas {
+    z-index: 1;
+    background:
+        radial-gradient(ellipse at 20% 35%,
+            #7d28a744 0%, transparent 30%),
+        radial-gradient(ellipse at 75% 55%,
+            #3f43c744 0%, transparent 34%),
+        radial-gradient(ellipse at 45% 90%,
+            #a32b8e33 0%, transparent 35%);
+    filter: blur(18px);
+}
+
+#galaxias {
+    z-index: 2;
+}
+
+#planetas {
+    z-index: 3;
+}
+
+/* Estrelas */
+
+.estrela {
+    position: absolute;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 6px #cdb8ff;
+    animation: cintilar var(--duracao, 3s) ease-in-out infinite alternate;
+    animation-delay: var(--atraso, 0s);
+}
+
+.estrela.grande {
+    box-shadow: 0 0 8px white, 0 0 18px #9c73ff;
+}
+
+@keyframes cintilar {
+    from { opacity: .2; transform: scale(.65); }
+    to   { opacity: 1; transform: scale(1.35); }
+}
+
+/* Galáxias */
+
+.galaxia {
+    position: absolute;
+    width: min(76vw, 390px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background:
+        radial-gradient(ellipse at center,
+            #fff 0%,
+            #fff0dc 2%,
+            #ffc3f5 5%,
+            #d27aff 10%,
+            #843bd2 18%,
+            #432071 30%,
+            #191032 42%,
+            transparent 66%);
+    box-shadow: 0 0 65px #8b4fff22;
+    animation: flutuar 12s ease-in-out infinite alternate;
+}
+
+.galaxia::before,
+.galaxia::after {
+    content: "";
+    position: absolute;
+    inset: 13%;
+    border-radius: 50%;
+    border: 2px solid #e2a6ff55;
+    transform: rotate(-35deg) scaleY(.34);
+    box-shadow:
+        0 0 18px #d98aff55,
+        inset 0 0 15px #9b5aff33;
+}
+
+.galaxia::after {
+    inset: 23% -5%;
+    border-color: #f5b9ff44;
+    transform: rotate(25deg) scaleY(.28);
+}
+
+.galaxia.um {
+    top: 12%;
+    left: 8%;
+}
+
+.galaxia.dois {
+    width: min(42vw, 220px);
+    top: 62%;
+    right: 5%;
+    left: auto;
+    opacity: .65;
+    animation-delay: -5s;
+}
+
+@keyframes flutuar {
+    from { transform: rotate(-12deg) scale(.94); }
+    to   { transform: rotate(12deg) scale(1.06); }
+}
+
+/* Planetas */
+
+.planeta {
+    position: absolute;
+    border-radius: 50%;
+    overflow: visible;
+    box-shadow:
+        inset -15px -10px 22px #000b,
+        inset 5px 4px 13px #ffffff22,
+        0 0 24px #9674ff33;
+}
+
+.planeta.azul {
+    width: 75px;
+    height: 75px;
+    background: linear-gradient(135deg,
+        #d7d4ff, #526ac7 35%, #14204d 75%);
+    left: 5%;
+    top: 34%;
+}
+
+.planeta.rosa {
+    width: 43px;
+    height: 43px;
+    background: linear-gradient(135deg,
+        #ffe1fa, #c451bc 38%, #35124c);
+    right: 10%;
+    top: 23%;
+}
+
+.planeta.dourado {
+    width: 96px;
+    height: 96px;
+    background: linear-gradient(135deg,
+        #ffdfa0, #c17a49 40%, #4e214f 78%);
+    right: -4%;
+    bottom: 16%;
+}
+
+.planeta.anelado {
+    width: 65px;
+    height: 65px;
+    background: linear-gradient(135deg,
+        #f7c4f5, #8253c4 45%, #21103f);
+    left: 18%;
+    bottom: 17%;
+}
+
+.planeta.anelado::after {
+    content: "";
+    position: absolute;
+    width: 150%;
+    height: 35%;
+    left: -25%;
+    top: 33%;
+    border: 4px solid #e1b7ff99;
+    border-left-color: #fbe0ffcc;
+    border-right-color: #a779df88;
+    border-radius: 50%;
+    transform: rotate(-20deg);
+}
+
+/* Interface */
+
+.interface {
+    position: absolute;
+    z-index: 10;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding:
+        max(25px, env(safe-area-inset-top))
+        22px
+        max(70px, env(safe-area-inset-bottom));
+    text-align: center;
+    pointer-events: none;
+}
+
+.painel {
+    position: absolute;
+    width: min(90%, 520px);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(25px) scale(.97);
+    transition:
+        opacity 1.1s ease,
+        transform 1.1s ease,
+        visibility 1.1s;
+}
+
+.painel.ativo {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+.mini-titulo {
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #d5b8ff;
+    margin-bottom: 25px;
+}
+
+h1 {
+    font-size: clamp(33px, 9vw, 58px);
+    line-height: 1.25;
+    font-weight: normal;
+    color: #fff4ff;
+    text-shadow:
+        0 0 12px #e4a6ff99,
+        0 0 36px #9c49ff77;
+}
+
+.dedicado {
+    font-size: clamp(25px, 7vw, 42px);
+    line-height: 1.5;
+}
+
+.nome {
+    display: block;
+    margin-top: 12px;
+    color: var(--rosa);
+    font-style: italic;
+    text-shadow:
+        0 0 15px #ff9eea88,
+        0 0 35px #b855ff77;
+}
+
+.coracao {
+    display: block;
+    color: #ffb1ed;
+    font-size: 36px;
+    margin-top: 22px;
+    animation: pulsar 1.6s ease-in-out infinite;
+    text-shadow: 0 0 25px #ff62d7;
+}
+
+@keyframes pulsar {
+    50% { transform: scale(1.18); }
+}
+
+.texto {
+    color: #e8dcff;
+    font-size: clamp(16px, 4vw, 19px);
+    line-height: 1.9;
+    margin-top: 20px;
+}
+
+.carta {
+    border: 1px solid #c58bff66;
+    background: linear-gradient(145deg,
+        #211039d9, #0c081eeF);
+    backdrop-filter: blur(12px);
+    border-radius: 24px;
+    padding: clamp(22px, 6vw, 34px);
+    box-shadow:
+        0 0 55px #8f36ff22,
+        inset 0 0 25px #9f58ff0a;
+}
+
+.carta h2 {
+    font-size: clamp(24px, 6vw, 32px);
+    line-height: 1.35;
+    font-weight: normal;
+    color: #f5caff;
+    margin-bottom: 18px;
+}
+
+.carta p {
+    font-size: clamp(15px, 3.9vw, 17px);
+    line-height: 1.85;
+    color: #f5edff;
+}
+
+.assinatura {
+    color: var(--dourado);
+    display: block;
+    font-style: italic;
+    margin-top: 22px;
+    font-size: 20px;
+}
+
+/* Indicadores e instruções */
+
+.instrucao {
+    position: absolute;
+    z-index: 15;
+    bottom: max(25px, env(safe-area-inset-bottom));
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 12px;
+    color: #e4d1ff;
+    font: 13px/1.6 Arial, sans-serif;
+    letter-spacing: 1px;
+    pointer-events: none;
+    text-shadow: 0 0 10px #a45dff;
+}
+
+.setas {
+    display: block;
+    font-size: 25px;
+    line-height: 1.2;
+    color: #ffd8f7;
+    animation: subir 1.5s ease-in-out infinite;
+}
+
+@keyframes subir {
+    50% { transform: translateY(-7px); }
+}
+
+.progresso {
+    display: flex;
+    justify-content: center;
+    gap: 9px;
+    margin-top: 9px;
+}
+
+.ponto {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ffffff55;
+    transition: .5s;
+}
+
+.ponto.ativo {
+    background: #ffd4f7;
+    box-shadow: 0 0 10px #ffb3f5;
+    transform: scale(1.4);
+}
+
+#brilhos {
+    position: absolute;
+    z-index: 20;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.particula {
+    position: absolute;
+    bottom: -30px;
+    animation: subirParticula 4s ease-out forwards;
+    filter: drop-shadow(0 0 8px #e5a5ff);
+}
+
+@keyframes subirParticula {
+    to {
+        transform: translateY(-110vh) rotate(40deg) scale(1.5);
+        opacity: 0;
+    }
+}
+
+@media (max-height: 700px) {
+    .interface {
+        padding-top: 20px;
+        padding-bottom: 75px;
+    }
+
+    .mini-titulo {
+        margin-bottom: 14px;
+    }
+
+    .texto {
+        margin-top: 12px;
+        line-height: 1.65;
+    }
+
+    .coracao {
+        margin-top: 10px;
+    }
+
+    .carta {
+        padding: 19px;
+    }
+
+    .carta p {
+        line-height: 1.6;
+    }
+
+    .assinatura {
+        margin-top: 12px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+
+    .camada, .painel {
+        transition-duration: .15s;
+    }
+}
+</style>
+</head>
+
+<body>
+<div id="universo">
+
+    <div id="nebulosas" class="camada"></div>
+    <div id="ceu" class="camada"></div>
+
+    <div id="galaxias" class="camada">
+        <div class="galaxia um"></div>
+        <div class="galaxia dois"></div>
+    </div>
+
+    <div id="planetas" class="camada">
+        <div class="planeta azul"></div>
+        <div class="planeta rosa"></div>
+        <div class="planeta dourado"></div>
+        <div class="planeta anelado"></div>
+    </div>
+
+    <div class="interface">
+
+        <!-- ETAPA 1: O universo, sem revelar o nome -->
+
+        <section class="painel ativo" id="etapa0">
+            <div class="mini-titulo">Uma imensidão sem fim</div>
+
+            <h1>O universo<br>é infinito...</h1>
+
+            <p class="texto">
+                E ainda assim, existe algo mais bonito
+                do que todas as estrelas juntas.
+            </p>
+
+            <span class="coracao">✧</span>
+        </section>
+
+        <!-- ETAPA 2: A dedicatória -->
+
+        <section class="painel" id="etapa1">
+            <div class="mini-titulo">Uma descoberta especial</div>
+
+            <h1 class="dedicado">
+                Este universo<br>
+                é dedicado para
+                <span class="nome">Vitianne Prinscyla</span>
+            </h1>
+
+            <span class="coracao">♥</span>
+
+            <p class="texto">
+                Porque algumas pessoas brilham
+                mais do que todas as estrelas.
+            </p>
+        </section>
+
+        <!-- ETAPA 3: A mensagem final -->
+
+        <section class="painel" id="etapa2">
+            <div class="carta">
+                <h2>Para você, meu amorzinho 💜</h2>
+
+                <p>
+                    Se eu pudesse te dar alguma coisa
+                    neste mundo, te daria a capacidade
+                    de enxergar a si mesma através dos
+                    meus olhos. Assim, você perceberia
+                    o quanto é especial para mim.
+                    <br><br>
+                    Em meio a bilhões de estrelas,
+                    galáxias incontáveis e um universo
+                    que parece não ter fim, meu coração
+                    encontrou em você algo único.
+                    <br><br>
+                    Que nunca te faltem motivos para
+                    sorrir, coragem para realizar seus
+                    sonhos e amor para aquecer seu coração.
+                    <br><br>
+                    Não existe distância grande demais
+                    para apagar o carinho verdadeiro,
+                    nem universo grande o suficiente
+                    para medir o que alguém especial
+                    pode significar.
+                </p>
+
+                <span class="assinatura">
+                    Com todo meu amor. ♥
+                </span>
+            </div>
+        </section>
+
+    </div>
+
+    <div class="instrucao">
+        <span class="setas" id="setas">⌃⌃</span>
+        <span id="dica">Afaste o universo para descobrir</span>
+        <div class="progresso">
+            <span class="ponto ativo"></span>
+            <span class="ponto"></span>
+            <span class="ponto"></span>
+        </div>
+    </div>
+
+    <div id="brilhos"></div>
+
+</div>
+
+<script>
+(() => {
+    const universo = document.getElementById("universo");
+    const ceu = document.getElementById("ceu");
+    const galaxias = document.getElementById("galaxias");
+    const planetas = document.getElementById("planetas");
+    const nebulosas = document.getElementById("nebulosas");
+    const dica = document.getElementById("dica");
+    const setas = document.getElementById("setas");
+    const pontos = [...document.querySelectorAll(".ponto")];
+    const paineis = [
+        document.getElementById("etapa0"),
+        document.getElementById("etapa1"),
+        document.getElementById("etapa2")
+    ];
+
+    let etapa = 0;
+    let inicioX = 0;
+    let inicioY = 0;
+    let distanciaInicial = 0;
+    let ultimaAcao = 0;
+    let deslocamento = 0;
+    let gestoAtivo = false;
+
+    // Criar um céu com estrelas aleatórias.
+    for (let i = 0; i < 240; i++) {
+        const estrela = document.createElement("span");
+        estrela.className = "estrela";
+
+        const tamanho = Math.random() * 2.1 + 0.5;
+
+        estrela.style.width = tamanho + "px";
+        estrela.style.height = tamanho + "px";
+        estrela.style.left = Math.random() * 100 + "%";
+        estrela.style.top = Math.random() * 100 + "%";
+        estrela.style.setProperty(
+            "--duracao",
+            (1.5 + Math.random() * 4) + "s"
+        );
+        estrela.style.setProperty(
+            "--atraso",
+            (-Math.random() * 4) + "s"
+        );
+
+        if (Math.random() > 0.94) {
+            estrela.classList.add("grande");
+        }
+
+        ceu.appendChild(estrela);
+    }
+
+    // Atualiza a cena de acordo com a etapa.
+    function mostrarEtapa(novaEtapa) {
+        etapa = Math.max(0, Math.min(2, novaEtapa));
+
+        paineis.forEach((painel, i) => {
+            painel.classList.toggle("ativo", i === etapa);
+        });
+
+        pontos.forEach((ponto, i) => {
+            ponto.classList.toggle("ativo", i === etapa);
+        });
+
+        const escala = [1, 1.65, 2.7][etapa];
+
+        ceu.style.transform =
+            `scale(${escala}) rotate(${etapa * 4}deg)`;
+
+        galaxias.style.transform =
+            `scale(${escala}) rotate(${etapa * -7}deg)`;
+
+        planetas.style.transform =
+            `scale(${escala}) translateY(${etapa * -3}%)`;
+
+        nebulosas.style.transform =
+            `scale(${escala}) rotate(${etapa * 5}deg)`;
+
+        nebulosas.style.opacity = [1, 0.8, 0.55][etapa];
+
+        if (etapa === 0) {
+            dica.textContent = "Afaste o universo para descobrir";
+            setas.textContent = "⌃⌃";
+        } else if (etapa === 1) {
+            dica.textContent = "Afaste mais para revelar a mensagem";
+            setas.textContent = "⌃⌃";
+            soltarBrilhos(12);
+        } else {
+            dica.textContent = "Toque ou deslize para recomeçar";
+            setas.textContent = "♥";
+            soltarBrilhos(30);
+        }
+    }
+
+    function avancar() {
+        mostrarEtapa(etapa >= 2 ? 0 : etapa + 1);
+    }
+
+    function voltar() {
+        mostrarEtapa(etapa <= 0 ? 0 : etapa - 1);
+    }
+
+    // Distância entre dois dedos para reconhecer o gesto de zoom.
+    function distancia(a, b) {
+        return Math.hypot(
+            b.clientX - a.clientX,
+            b.clientY - a.clientY
+        );
+    }
+
+    universo.addEventListener("touchstart", (e) => {
+        if (e.touches.length === 2) {
+            distanciaInicial = distancia(
+                e.touches[0], e.touches[1]
+            );
+            gestoAtivo = true;
+        } else if (e.touches.length === 1) {
+            inicioX = e.touches[0].clientX;
+            inicioY = e.touches[0].clientY;
+            deslocamento = 0;
+            gestoAtivo = true;
+        }
+    }, { passive: true });
+
+    universo.addEventListener("touchmove", (e) => {
+        if (e.touches.length === 2 && distanciaInicial > 0) {
+            const atual = distancia(e.touches[0], e.touches[1]);
+            deslocamento = atual - distanciaInicial;
+        } else if (e.touches.length === 1) {
+            deslocamento = inicioY - e.touches[0].clientY;
+        }
+    }, { passive: true });
+
+    universo.addEventListener("touchend", () => {
+        if (!gestoAtivo) return;
+
+        if (Date.now() - ultimaAcao < 450) {
+            gestoAtivo = false;
+            return;
+        }
+
+        if (Math.abs(deslocamento) > 35) {
+            ultimaAcao = Date.now();
+
+            if (deslocamento > 0) {
+                avancar();
+            } else {
+                voltar();
+            }
+        }
+
+        deslocamento = 0;
+        distanciaInicial = 0;
+        gestoAtivo = false;
+    }, { passive: true });
+
+    // Zoom com a roda do mouse, no computador.
+    universo.addEventListener("wheel", (e) => {
+        e.preventDefault();
+
+        if (Date.now() - ultimaAcao < 700) return;
+
+        ultimaAcao = Date.now();
+
+        if (e.deltaY > 0) {
+            avancar();
+        } else {
+            voltar();
+        }
+    }, { passive: false });
+
+    // Navegação com as setas do teclado.
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowDown" || e.key === "ArrowRight") {
+            avancar();
+        }
+
+        if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
+            voltar();
+        }
+    });
+
+    // Clique ou toque simples: avançar uma etapa.
+    let inicioToque = 0;
+
+    universo.addEventListener("pointerdown", (e) => {
+        if (e.pointerType === "mouse") {
+            inicioToque = Date.now();
+        }
+    });
+
+    universo.addEventListener("click", (e) => {
+        if (e.target.closest("a, button")) return;
+        if (Date.now() - inicioToque < 100) return;
+        if (Date.now() - ultimaAcao < 450) return;
+
+        ultimaAcao = Date.now();
+        avancar();
+    });
+
+    // Partículas mágicas.
+    function soltarBrilhos(quantidade) {
+        const recipiente = document.getElementById("brilhos");
+
+        for (let i = 0; i < quantidade; i++) {
+            const brilho = document.createElement("span");
+            brilho.className = "particula";
+            brilho.textContent = ["✦", "✧", "♥", "✨"][
+                Math.floor(Math.random() * 4)
+            ];
+
+            brilho.style.left = Math.random() * 100 + "%";
+            brilho.style.fontSize =
+                (12 + Math.random() * 20) + "px";
+            brilho.style.animationDelay =
+                Math.random() * 2 + "s";
+
+            recipiente.appendChild(brilho);
+
+            setTimeout(() => brilho.remove(), 6000);
+        }
+    }
+
+    mostrarEtapa(0);
+})();
+</script>
+</body>
+</html>
